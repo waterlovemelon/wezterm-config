@@ -2,7 +2,10 @@ local wezterm = require('wezterm')
 local platform = require('utils.platform')
 
 -- local font_family = 'Maple Mono NF'
-local font_family = 'JetBrainsMono Nerd Font'
+-- `font-jetbrains-mono` installs the `JetBrains Mono` family.
+-- If you install `font-jetbrains-mono-nerd-font`, you can switch this back to
+-- `JetBrainsMono Nerd Font`.
+local font_family = 'JetBrains Mono'
 -- local font_family = 'CartographCF Nerd Font'
 
 local font_size = platform.is_mac and 12 or 9.75
