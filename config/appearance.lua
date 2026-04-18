@@ -1,6 +1,7 @@
 local gpu_adapters = require('utils.gpu-adapter')
 local backdrops = require('utils.backdrops')
 local colors = require('colors.custom')
+local platform = require('utils.platform')
 
 return {
    max_fps = 120,
@@ -52,6 +53,7 @@ return {
    window_close_confirmation = 'NeverPrompt',
    window_frame = {
       active_titlebar_bg = '#090909',
+      font_size = platform.is_mac and 14 or 11,
       -- font = fonts.font,
       -- font_size = fonts.font_size,
    },

@@ -54,8 +54,8 @@ local keys = {
    { key = 'Backspace',  mods = mod.SUPER,     action = act.SendString '\u{15}' },
 
    -- copy/paste --
-   { key = 'c',          mods = 'CTRL|SHIFT',  action = act.CopyTo('Clipboard') },
-   { key = 'v',          mods = 'CTRL|SHIFT',  action = act.PasteFrom('Clipboard') },
+   { key = 'c',          mods = mod.SUPER,     action = act.CopyTo('Clipboard') },
+   { key = 'v',          mods = mod.SUPER,     action = act.PasteFrom('Clipboard') },
 
    -- tabs --
    -- tabs: spawn+close
@@ -171,7 +171,7 @@ local keys = {
    },
    {
       key = [[\]],
-      mods = mod.SUPER_REV,
+      mods = 'SUPER|SHIFT',
       action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }),
    },
 
@@ -218,6 +218,14 @@ local keys = {
       }),
    },
 }
+
+for i = 1, 8 do
+   table.insert(keys, {
+      key = tostring(i),
+      mods = mod.SUPER,
+      action = act.ActivateTab(i - 1),
+   })
+end
 
 -- stylua: ignore
 local key_tables = {

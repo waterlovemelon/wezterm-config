@@ -246,8 +246,8 @@ Most of the key bindings revolve around a <kbd>SUPER</kbd> and <kbd>SUPER_REV</k
 
 | Keys                                          | Action               |
 | --------------------------------------------- | -------------------- |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>c</kbd> | Copy to Clipboard    |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>v</kbd> | Paste from Clipboard |
+| <kbd>SUPER</kbd>+<kbd>c</kbd>                 | Copy to Clipboard    |
+| <kbd>SUPER</kbd>+<kbd>v</kbd>                 | Paste from Clipboard |
 
 &nbsp;
 
@@ -275,6 +275,14 @@ Most of the key bindings revolve around a <kbd>SUPER</kbd> and <kbd>SUPER_REV</k
 
 | Keys                              | Action         |
 | --------------------------------- | -------------- |
+| <kbd>SUPER</kbd>+<kbd>1</kbd>     | Go to Tab 1    |
+| <kbd>SUPER</kbd>+<kbd>2</kbd>     | Go to Tab 2    |
+| <kbd>SUPER</kbd>+<kbd>3</kbd>     | Go to Tab 3    |
+| <kbd>SUPER</kbd>+<kbd>4</kbd>     | Go to Tab 4    |
+| <kbd>SUPER</kbd>+<kbd>5</kbd>     | Go to Tab 5    |
+| <kbd>SUPER</kbd>+<kbd>6</kbd>     | Go to Tab 6    |
+| <kbd>SUPER</kbd>+<kbd>7</kbd>     | Go to Tab 7    |
+| <kbd>SUPER</kbd>+<kbd>8</kbd>     | Go to Tab 8    |
 | <kbd>SUPER</kbd>+<kbd>[</kbd>     | Next Tab       |
 | <kbd>SUPER</kbd>+<kbd>]</kbd>     | Previous Tab   |
 | <kbd>SUPER_REV</kbd>+<kbd>[</kbd> | Move Tab Left  |
@@ -312,7 +320,7 @@ Most of the key bindings revolve around a <kbd>SUPER</kbd> and <kbd>SUPER_REV</k
 | Keys                               | Action                                           |
 | ---------------------------------- | ------------------------------------------------ |
 | <kbd>SUPER</kbd>+<kbd>\\</kbd>     | `SplitVertical` <sub>(CurrentPaneDomain)</sub>   |
-| <kbd>SUPER_REV</kbd>+<kbd>\\</kbd> | `SplitHorizontal` <sub>(CurrentPaneDomain)</sub> |
+| <kbd>SUPER</kbd>+<kbd>Shift</kbd>+<kbd>\\</kbd> | `SplitHorizontal` <sub>(CurrentPaneDomain)</sub> |
 
 ##### Panes: Zoom+Close Pane
 
