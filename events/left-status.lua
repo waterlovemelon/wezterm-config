@@ -19,6 +19,7 @@ local colors = {
 }
 
 local cells = Cells:new()
+local last_status = nil
 
 cells
    :add_segment(1, GLYPH_SEMI_CIRCLE_LEFT, colors.scircle, attr(attr.intensity('Bold')))
@@ -29,20 +30,24 @@ cells
 M.setup = function()
    wezterm.on('update-status', function(window, _pane)
       local name = window:active_key_table()
-      local res = {}
+      local status = ''
 
       if name then
          cells
             :update_segment_text(2, GLYPH_KEY_TABLE)
             :update_segment_text(3, ' ' .. string.upper(name))
-         res = cells:render_all()
+         status = wezterm.format(cells:render_all())
       end
 
       if window:leader_is_active() then
          cells:update_segment_text(2, GLYPH_KEY):update_segment_text(3, ' ')
-         res = cells:render_all()
+         status = wezterm.format(cells:render_all())
       end
-      window:set_left_status(wezterm.format(res))
+
+      if status ~= last_status then
+         window:set_left_status(status)
+         last_status = status
+      end
    end)
 end
 

@@ -8,6 +8,7 @@ local Cells = require('utils.cells')
 local OptsValidator = require('utils.opts-validator')
 local ustr = require('utils.str')
 local umath = require('utils.math')
+local performance = require('utils.performance')
 
 local nf = wezterm.nerdfonts
 local attr = Cells.attr
@@ -590,7 +591,16 @@ M.setup = function(opts)
          tab_list[tab.tab_id] = Tab:new()
       end
 
-      tab_list[tab.tab_id]:update_cells(valid_opts, tab, hover, umath.clamp(max_width, 5, 18))
+      tab_list[tab.tab_id]:update_cells(
+         {
+            unseen_icon = valid_opts.unseen_icon,
+            hide_active_tab_unseen = valid_opts.hide_active_tab_unseen,
+            show_progress = valid_opts.show_progress and performance:profile().show_progress,
+         },
+         tab,
+         hover,
+         umath.clamp(max_width, 5, 18)
+      )
       return tab_list[tab.tab_id]:render()
    end)
 end

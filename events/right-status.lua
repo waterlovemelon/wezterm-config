@@ -2,24 +2,11 @@
 local wezterm = require('wezterm')
 local umath = require('utils.math')
 local Cells = require('utils.cells')
-local OptsValidator = require('utils.opts-validator')
+local performance = require('utils.performance')
+local backdrops = require('utils.backdrops')
 
 local nf = wezterm.nerdfonts
 local attr = Cells.attr
-
----@alias Event.RightStatusOptionsInput { date_format?: string }
-
----@alias Event.RightStatusOptions { date_format: string }
-
----Setup options for the right status bar
----@type OptsValidator
-local EVENT_OPTS = OptsValidator:new({
-   {
-      name = 'date_format',
-      type = 'string',
-      default = '%a %H:%M:%S',
-   },
-})
 
 local M = {}
 
@@ -57,6 +44,7 @@ local charging_icons = {
 -- stylua: ignore
 local colors = {
    date      = { fg = '#fab387', bg = 'rgba(0, 0, 0, 0.4)' },
+   mode      = { fg = '#a6e3a1', bg = 'rgba(0, 0, 0, 0.4)' },
    battery   = { fg = '#f9e2af', bg = 'rgba(0, 0, 0, 0.4)' },
    separator = { fg = '#74c7ec', bg = 'rgba(0, 0, 0, 0.4)' }
 }
@@ -66,6 +54,7 @@ local cells = Cells:new()
 cells
    :add_segment('date_icon', ICON_DATE .. '  ', colors.date, attr(attr.intensity('Bold')))
    :add_segment('date_text', '', colors.date, attr(attr.intensity('Bold')))
+   :add_segment('mode_text', '', colors.mode, attr(attr.intensity('Bold')))
    :add_segment('separator', ' ' .. ICON_SEPARATOR .. '  ', colors.separator)
    :add_segment('battery_icon', '', colors.battery)
    :add_segment('battery_text', '', colors.battery, attr(attr.intensity('Bold')))
@@ -95,22 +84,17 @@ local function battery_info()
    return charge, icon .. ' '
 end
 
----@param opts? Event.RightStatusOptionsInput Default: {date_format = '%a %H:%M:%S'}
-M.setup = function(opts)
-   local valid_opts, err = EVENT_OPTS:validate(opts or {})
-
-   if err then
-      wezterm.log_error(err)
-   end
-
-   ---@cast valid_opts Event.RightStatusOptions
-
+M.setup = function()
    wezterm.on('update-status', function(window, _pane)
+      performance:maybe_apply_auto_profile(window, backdrops)
+
+      local perf = performance:state()
       local battery_text, battery_icon = battery_info()
-      local segment_ids = { 'date_icon', 'date_text' }
+      local segment_ids = { 'date_icon', 'date_text', 'separator', 'mode_text' }
 
       cells
-         :update_segment_text('date_text', wezterm.strftime(valid_opts.date_format))
+         :update_segment_text('date_text', wezterm.strftime(perf.profile.date_format))
+         :update_segment_text('mode_text', performance:label(perf.selector))
 
       if battery_text and battery_icon then
          cells

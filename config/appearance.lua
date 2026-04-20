@@ -3,28 +3,31 @@ local gpu_adapters = require('utils.gpu-adapter')
 local backdrops = require('utils.backdrops')
 local colors = require('colors.custom')
 local platform = require('utils.platform')
+local performance = require('utils.performance')
+
+local perf = performance:profile()
 
 return {
-   max_fps = 120,
+   max_fps = perf.max_fps,
    front_end = 'WebGpu', ---@type 'WebGpu' | 'OpenGL' | 'Software'
-   webgpu_power_preference = 'HighPerformance',
+   webgpu_power_preference = perf.webgpu_power_preference,
    webgpu_preferred_adapter = gpu_adapters:pick_best(),
    -- webgpu_preferred_adapter = gpu_adapters:pick_manual('Dx12', 'IntegratedGpu'),
    -- webgpu_preferred_adapter = gpu_adapters:pick_manual('Gl', 'Other'),
    underline_thickness = '1.5pt',
 
    -- cursor
-   animation_fps = 120,
+   animation_fps = perf.animation_fps,
    cursor_blink_ease_in = 'EaseOut',
    cursor_blink_ease_out = 'EaseOut',
-   default_cursor_style = 'BlinkingBlock',
+   default_cursor_style = perf.default_cursor_style,
    cursor_blink_rate = 650,
 
    -- color scheme
    colors = colors,
 
    -- background: pass in `true` if you want wezterm to start with focus mode on (no bg images)
-   background = backdrops:initial_options({ no_img = false }),
+   background = backdrops:initial_options({ no_img = not perf.background_images }),
 
    -- scrollbar
    enable_scroll_bar = true,

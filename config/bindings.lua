@@ -197,6 +197,17 @@ local keys = {
    { key = 'PageDown', mods = 'NONE',    action = act.ScrollByPage(0.75) },
 
    -- key-tables --
+   {
+      key = 'm',
+      mods = 'LEADER',
+      action = act.EmitEvent('performance.cycle-mode'),
+   },
+   {
+      key = 'm',
+      mods = 'LEADER|SHIFT',
+      action = act.EmitEvent('performance.select-mode'),
+   },
+
    -- resizes fonts
    {
       key = 'f',
