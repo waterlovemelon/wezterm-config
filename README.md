@@ -217,7 +217,10 @@ Most of the key bindings revolve around a <kbd>SUPER</kbd> and <kbd>SUPER_REV</k
 - On MacOs:
   - <kbd>SUPER</kbd> ⇨ <kbd>Super</kbd>
   - <kbd>SUPER_REV</kbd> ⇨ <kbd>Super</kbd>+<kbd>Ctrl</kbd>
-- On Windows and Linux
+- On Linux
+  - <kbd>SUPER</kbd> ⇨ <kbd>Super</kbd>
+  - <kbd>SUPER_REV</kbd> ⇨ <kbd>Super</kbd>+<kbd>Ctrl</kbd>
+- On Windows
   - <kbd>SUPER</kbd> ⇨ <kbd>Alt</kbd>
   - <kbd>SUPER_REV</kbd> ⇨ <kbd>Alt</kbd>+<kbd>Ctrl</kbd>
 
@@ -244,10 +247,12 @@ Most of the key bindings revolve around a <kbd>SUPER</kbd> and <kbd>SUPER_REV</k
 
 #### Copy+Paste
 
+> Linux uses <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>c</kbd>/<kbd>v</kbd>.
+
 | Keys                                          | Action               |
 | --------------------------------------------- | -------------------- |
-| <kbd>SUPER</kbd>+<kbd>c</kbd>                 | Copy to Clipboard    |
-| <kbd>SUPER</kbd>+<kbd>v</kbd>                 | Paste from Clipboard |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>c</kbd> | Copy to Clipboard    |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>v</kbd> | Paste from Clipboard |
 
 &nbsp;
 
@@ -321,6 +326,8 @@ Most of the key bindings revolve around a <kbd>SUPER</kbd> and <kbd>SUPER_REV</k
 | ---------------------------------- | ------------------------------------------------ |
 | <kbd>SUPER</kbd>+<kbd>\\</kbd>     | `SplitVertical` <sub>(CurrentPaneDomain)</sub>   |
 | <kbd>SUPER</kbd>+<kbd>Shift</kbd>+<kbd>\\</kbd> | `SplitHorizontal` <sub>(CurrentPaneDomain)</sub> |
+| <kbd>SUPER</kbd>+<kbd>Shift</kbd>+<kbd>v</kbd> | `SplitVertical` <sub>(CurrentPaneDomain)</sub> |
+| <kbd>SUPER</kbd>+<kbd>Shift</kbd>+<kbd>h</kbd> | `SplitHorizontal` <sub>(CurrentPaneDomain)</sub> |
 
 ##### Panes: Zoom+Close Pane
 

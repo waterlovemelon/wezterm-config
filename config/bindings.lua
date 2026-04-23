@@ -4,14 +4,27 @@ local backdrops = require('utils.backdrops')
 local act = wezterm.action
 
 local mod = {}
+local copy_paste_mod
+local super_shift_mod
 
 if platform.is_mac then
    mod.SUPER = 'SUPER'
    mod.SUPER_REV = 'SUPER|CTRL'
-elseif platform.is_win or platform.is_linux then
+elseif platform.is_linux then
+   mod.SUPER = 'SUPER'
+   mod.SUPER_REV = 'SUPER|CTRL'
+elseif platform.is_win then
    mod.SUPER = 'ALT' -- to not conflict with Windows key shortcuts
    mod.SUPER_REV = 'ALT|CTRL'
 end
+
+if platform.is_linux then
+   copy_paste_mod = 'CTRL|SHIFT'
+else
+   copy_paste_mod = mod.SUPER
+end
+
+super_shift_mod = mod.SUPER .. '|SHIFT'
 
 -- stylua: ignore
 local keys = {
@@ -54,8 +67,8 @@ local keys = {
    { key = 'Backspace',  mods = mod.SUPER,     action = act.SendString '\u{15}' },
 
    -- copy/paste --
-   { key = 'c',          mods = mod.SUPER,     action = act.CopyTo('Clipboard') },
-   { key = 'v',          mods = mod.SUPER,     action = act.PasteFrom('Clipboard') },
+   { key = 'c',          mods = copy_paste_mod, action = act.CopyTo('Clipboard') },
+   { key = 'v',          mods = copy_paste_mod, action = act.PasteFrom('Clipboard') },
 
    -- tabs --
    -- tabs: spawn+close
@@ -165,13 +178,23 @@ local keys = {
    -- panes --
    -- panes: split panes
    {
-      key = [[\]],
+      key = 'mapped:\\',
       mods = mod.SUPER,
       action = act.SplitVertical({ domain = 'CurrentPaneDomain' }),
    },
    {
-      key = [[\]],
-      mods = 'SUPER|SHIFT',
+      key = 'mapped:|',
+      mods = mod.SUPER,
+      action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }),
+   },
+   {
+      key = 'v',
+      mods = super_shift_mod,
+      action = act.SplitVertical({ domain = 'CurrentPaneDomain' }),
+   },
+   {
+      key = 'h',
+      mods = super_shift_mod,
       action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }),
    },
 

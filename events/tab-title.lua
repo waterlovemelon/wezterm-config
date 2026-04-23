@@ -304,6 +304,24 @@ local function create_title(process_name, base_title, max_width, inset)
    return title
 end
 
+---@param title string?
+---@return string
+local function sanitize_title(title)
+   if not title or title == '' then
+      return 'shell'
+   end
+
+   local sanitized = title:gsub('[\r\n\t]+', ' ')
+   sanitized = sanitized:gsub('%s+', ' ')
+   sanitized = sanitized:gsub('^%s+', ''):gsub('%s+$', '')
+
+   if sanitized == '' then
+      return 'shell'
+   end
+
+   return sanitized
+end
+
 ---@param options Event.TabTitleOptions
 ---@param panes PaneInformation[]
 ---@return {icon: string?, status: 'indeterminate'|'percentage'|'error'?}[]
@@ -436,11 +454,14 @@ function Tab:update_cells(event_opts, tab, hover, max_width)
       tab_state = 'hover'
    end
 
-   local process_name = clean_process_name(tab.active_pane.foreground_process_name)
-   local base_title, prefix_icon = create_base_title(tab.active_pane.title, process_name)
-   local cwd_title = basename_from_cwd(tab.active_pane.current_working_dir)
-   local unseen_icon = check_unseen_output(event_opts, tab.is_active, tab.panes)
-   local progress = check_progress(event_opts, tab.panes)
+   -- Querying foreground process name and cwd for every tab render causes
+   -- heavy /proc lookups under fast-refresh TUIs like codex. Keep the tab
+   -- title cheap and derive it from the pane-provided title only.
+   local process_name = ''
+   local base_title = sanitize_title(tab.active_pane.title or tab.tab_title)
+   local prefix_icon = nil
+   local unseen_icon = nil
+   local progress = {}
    local inset = TITLE_INSET.default
 
    -- Prefix icons
@@ -485,9 +506,6 @@ function Tab:update_cells(event_opts, tab, hover, max_width)
    if self.title_locked then
       process_name = ''
       base_title = self.locked_title
-   elseif cwd_title and not prefix_icon then
-      process_name = ''
-      base_title = cwd_title
    end
 
    local title = create_title(process_name, base_title, max_width, inset)

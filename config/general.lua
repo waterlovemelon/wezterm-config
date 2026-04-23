@@ -5,7 +5,8 @@ local perf = performance:profile()
 return {
    -- behaviours
    automatically_reload_config = true,
-   exit_behavior = 'CloseOnCleanExit', -- if the shell program exited with a successful status
+   -- Shells often propagate the last command's exit status on `exit`, so close panes unconditionally.
+   exit_behavior = 'Close',
    exit_behavior_messaging = 'Verbose',
    status_update_interval = perf.status_update_interval,
    audible_bell = 'Disabled',

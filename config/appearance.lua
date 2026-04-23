@@ -58,7 +58,7 @@ return {
    window_frame = {
       active_titlebar_bg = '#090909',
       font = fonts.font,
-      font_size = platform.is_mac and 16 or 12,
+      font_size = platform.is_mac and 16 or 10,
    },
    -- inactive_pane_hsb = {
    --    saturation = 0.9,
